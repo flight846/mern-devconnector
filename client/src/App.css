@@ -342,6 +342,8 @@ button {
 
 .navbar a > svg { padding-top: 5px; }
 
+.navbar .nav > li > a.active { color: var(--primary-color); }
+
 .navbar a:hover {
   color: var(--primary-color);
 }
