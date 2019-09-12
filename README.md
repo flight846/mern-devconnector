@@ -3,6 +3,10 @@
 > Small social network app built with the MERN stack. This is part of my "MERN Stack Front To Back" Udemy course
 
 ## Quick Start
+module.exports = {
+  mongoURI: 'mongodb+srv://flight846:password1234@cluster0-bkwuu.mongodb.net/test?retryWrites=true&w=majority',
+  secretOrKey: 'secret'
+};
 
 ```bash
 # Install dependencies for server
