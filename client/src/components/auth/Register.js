@@ -26,7 +26,8 @@ const Register = ({ setAlert, register }) => {
         if (password !== password2) {
             setAlert('Password do not match', 'danger', 5000)
         } else {
-            register({ name, email, password })
+            console.log(formData)
+            register({ name, email, password, password2 })
         }
     }
 
