@@ -33,7 +33,6 @@ const Register = ({ setAlert, register }) => {
                 password: '',
                 password2: ''
             })
-            setAlert('Registration success', 'success', 2000)
             // this.props.history.push('/login');
         }
     }
