@@ -26,8 +26,15 @@ const Register = ({ setAlert, register }) => {
         if (password !== password2) {
             setAlert('Password do not match', 'danger', 5000)
         } else {
-            console.log(formData)
             register({ name, email, password, password2 })
+            setFormData({
+                name: '',
+                email: '',
+                password: '',
+                password2: ''
+            })
+            setAlert('Registration success', 'success', 2000)
+            // this.props.history.push('/login');
         }
     }
 

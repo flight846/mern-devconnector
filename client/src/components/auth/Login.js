@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alertActions';
+import { login } from '../../actions/authActions';
 
-const Login = () => {
+const Login = ({ setAlert, login }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -17,7 +20,17 @@ const Login = () => {
 
     const onSubmit = e => {
         e.preventDefault()
-        console.log(formData)
+        if (!email.length || !password.length) {
+            setAlert('Fill in all fields', 'danger', 5000)
+        } else {
+            login({ email, password })
+            setFormData({
+                email: '',
+                password: '',
+            })
+            setAlert('Login success', 'success', 2000)
+            // this.props.history.push('/login');
+        }
     }
 
     return (
@@ -26,7 +39,7 @@ const Login = () => {
             <p className="lead"><FaUser /> Sign into Your Account</p>
             <form className="form" onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
-                    <input type="email" placeholder="Email Address" onChange={e => onChange(e)} name="email" value={email} required />
+                    <input type="email" placeholder="Email Address" onChange={e => onChange(e)} name="email" value={email} />
                 </div>
                 <div className="form-group">
                     <input
@@ -36,7 +49,6 @@ const Login = () => {
                         minLength="6"
                         onChange={e => onChange(e)}
                         value={password}
-                        required
                     />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Login" />
@@ -48,4 +60,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default connect(null, { setAlert, login })(Login)
