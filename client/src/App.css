@@ -598,3 +598,7 @@ button {
     padding: 0.3rem 0.4rem;
   }
 }
+
+.fa-2x {
+  font-size: 2em;
+}
