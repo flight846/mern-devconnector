@@ -1,10 +1,11 @@
 import React, { useState, Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { FaUser, FaFacebook, FaTwitter, FaYoutube, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { createProfile } from '../../actions/profileActions'
 
-const CreateProfile = props => {
+const CreateProfile = ({ createProfile, history }) => {
     const [ formData, setFormData ] = useState({
         company: '',
         website: '',
@@ -19,6 +20,8 @@ const CreateProfile = props => {
         youtube: '',
         instagram: '',
     })
+
+    const [displaySocialInputs, toggleSocialInputs] = useState(false)
 
     const {
         company,
@@ -35,6 +38,15 @@ const CreateProfile = props => {
         instagram,
     } = formData;
 
+    const handleChange = e => setFormData({
+        ...formData, [e.target.name] : e.target.value
+    })
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        createProfile(formData, history)
+    }
+
     return (
         <Fragment>
             <h1 className="large text-primary"> Create Your Profile </h1>
@@ -43,9 +55,9 @@ const CreateProfile = props => {
                 profile stand out
             </p>
             <small>* = required field</small>
-            <form className="form">
+            <form className="form" onSubmit={ (e) => handleSubmit(e) }>
                 <div className="form-group">
-                    <select name="status">
+                    <select value={status} name="status" onChange={ (e) => handleChange(e) }>
                         <option value="0">* Select Professional Status</option>
                         <option value="Developer">Developer</option>
                         <option value="Junior Developer">Junior Developer</option>
@@ -59,19 +71,19 @@ const CreateProfile = props => {
                     <small className="form-text" >Give us an idea of where you are at in your career</small>
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Company" name="company" />
+                    <input type="text" placeholder="Company" name="company" value={company} onChange={(e) => handleChange(e)}/>
                     <small className="form-text" >Could be your own company or one you work for</small>
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Website" name="website" />
+                    <input type="text" placeholder="Website" name="website" value={website} onChange={(e) => handleChange(e)}/>
                     <small className="form-text" >Could be your own or a company website</small>
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Location" name="location" />
+                    <input type="text" placeholder="Location" name="location" value={location} onChange={(e) => handleChange(e)}/>
                     <small className="form-text" >City & state suggested (eg. Boston, MA)</small>
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="* Skills" name="skills" />
+                    <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={(e) => handleChange(e)}/>
                     <small className="form-text" >Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)</small>
                 </div>
                 <div className="form-group">
@@ -79,43 +91,51 @@ const CreateProfile = props => {
                         type="text"
                         placeholder="Github Username"
                         name="githubusername"
+                        value={githubusername}
+                        onChange={(e) => handleChange(e)}
                     />
                     <small className="form-text" >If you want your latest repos and a Github link, include your username</small>
                 </div>
                 <div className="form-group">
-                    <textarea placeholder="A short bio of yourself" name="bio"></textarea>
+                    <textarea placeholder="A short bio of yourself" name="bio" value={bio} onChange={(e) => handleChange(e)}></textarea>
                     <small className="form-text">Tell us a little about yourself</small>
                 </div>
 
                 <div className="my-2">
-                    <button type="button" className="btn btn-light"> Add Social Network Links </button>
+                    <button type="button" className="btn btn-light" onClick={ () => toggleSocialInputs(!displaySocialInputs) }> Add Social Network Links </button>
                     <span>Optional</span>
                 </div>
 
-                <div className="form-group social-input">
-                    <FaTwitter />
-                    <input type="text" placeholder="Twitter URL" name="twitter" />
-                </div>
+                { displaySocialInputs && 
+                    <Fragment>
+                        <div className="form-group social-input">
+                            <FaTwitter color="#38a1f3" className="fa-2x" style={{ width: '4rem' }} />
+                            <input type="text" placeholder="Twitter URL" name="twitter" value={twitter} onChange={(e) => handleChange(e)}/>
+                        </div>
 
-                <div className="form-group social-input">
-                    <FaFacebook className="fa-2x"/>
-                    <input type="text" placeholder="Facebook URL" name="facebook" />
-                </div>
+                        <div className="form-group social-input">
+                            <FaFacebook color="#3b5998" className="fa-2x" style={{ width: '4rem' }} />
+                            <input type="text" placeholder="Facebook URL" name="facebook" value={facebook} onChange={(e) => handleChange(e)}/>
+                        </div>
 
-                <div className="form-group social-input">
-                    <FaYoutube className="fa-2x"/>
-                    <input type="text" placeholder="YouTube URL" name="youtube" />
-                </div>
+                        <div className="form-group social-input">
+                            <FaYoutube color="#c4302b" className="fa-2x" style={{ width: '4rem' }} />
+                            <input type="text" placeholder="YouTube URL" name="youtube" value={youtube} onChange={(e) => handleChange(e)}/>
+                        </div>
 
-                <div className="form-group social-input">
-                    <FaLinkedin className="fa-2x"/>
-                    <input type="text" placeholder="Linkedin URL" name="linkedin" />
-                </div>
+                        <div className="form-group social-input">
+                            <FaLinkedin color="#0077b5" className="fa-2x" style={{ width: '4rem' }} />
+                            <input type="text" placeholder="Linkedin URL" name="linkedin" value={linkedin} onChange={(e) => handleChange(e)}/>
+                        </div>
 
-                <div className="form-group social-input">
-                    <FaInstagram className="fa-2x"/>
-                    <input type="text" placeholder="Instagram URL" name="instagram" />
-                </div>
+                        <div className="form-group social-input">
+                            <FaInstagram color="#3f729b" className="fa-2x" style={{ width: '4rem' }} />
+                            <input type="text" placeholder="Instagram URL" name="instagram" value={instagram} onChange={(e) => handleChange(e)}/>
+                        </div>
+                    </Fragment> 
+                }
+
+                
                 <input type="submit" className="btn btn-primary my-1" />
                 <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
             </form>
@@ -124,7 +144,7 @@ const CreateProfile = props => {
 }
 
 CreateProfile.propTypes = {
-
+    createProfile: PropTypes.func.isRequired,
 }
 
-export default CreateProfile
+export default connect(null, { createProfile })(withRouter(CreateProfile))
