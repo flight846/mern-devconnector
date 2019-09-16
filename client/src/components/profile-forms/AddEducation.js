@@ -29,7 +29,7 @@ const AddEducation = ({ addEducation, history }) => {
 
     return (
         <Fragment>
-            <h1 class="large text-primary"> Add Your Education </h1>
+            <h1 className="large text-primary"> Add Your Education </h1>
             <p class="lead">
                 <FaCodeBranch /> Add any school or bootcamp you have attended
             </p>

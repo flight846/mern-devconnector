@@ -29,7 +29,7 @@ const AddExperience = ({ addExperience, history }) => {
 
     return (
         <Fragment>
-            <h1 class="large text-primary"> Add An Experience </h1>
+            <h1 className="large text-primary"> Add An Experience </h1>
             <p class="lead">
                 <FaCodeBranch /> Add any developer/programming
                 positions that you have had in the past
