@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import { getProfileById } from '../../actions/profileActions'
+import ProfileTop from './ProfileTop';
+import ProfileAbout from './ProfileAbout';
 
 const Profile = ({ match, getProfileById, profile: { profile, loading }, auth }) => {
     useEffect(() => {
         getProfileById(match.params.id)
-    }, [getProfileById])
+    }, [getProfileById, match.params.id])
 
     return (
         <Fragment>
@@ -17,7 +19,11 @@ const Profile = ({ match, getProfileById, profile: { profile, loading }, auth })
             ) : (
                 <Fragment>
                     <Link to="/profiles" className="btn btn-light">Back to profiles</Link>
-                    { auth.isAuthenticated && auth.loading === false && auth.user._id === profile.user._id ? <Link to="/edit-profile" className="btn btn-dark">Edit profile</Link> : null }
+                    { auth.isAuthenticated && auth.loading === false && auth.user._id === profile.user._id && <Link to="/edit-profile" className="btn btn-dark">Edit profile</Link> }
+                    <div className="profile-grid my-1">
+                        <ProfileTop profile={profile}/>
+                        <ProfileAbout profile={profile}/>
+                    </div>
                 </Fragment>
             ) }
         </Fragment>
