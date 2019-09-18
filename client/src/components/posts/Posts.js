@@ -3,17 +3,28 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { getPosts } from '../../actions/postActions'
 import Spinner from '../layout/Spinner'
+import PostItem from './PostItem'
+import { FaUser } from 'react-icons/fa'
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
     useEffect(() => {
         getPosts()
     }, [getPosts])
 
-    return (
-        <div>
-            <Spinner />
-        </div>
-    )
+    return loading ? 
+        <Spinner /> : 
+        <Fragment>
+            <h1 className="large text-primary">
+                Posts
+            </h1>
+            <p className="lead"><FaUser />{' '}Welcome to the community</p>
+            {/* PostForm */}
+            <div className="posts">
+                { posts && posts.map(post => (
+                    <PostItem key={ post._id } post={ post }/>
+                )) }
+            </div>
+        </Fragment>
 }
 
 Posts.propTypes = {
@@ -22,7 +33,7 @@ Posts.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    post: state.posts
+    post: state.post
 })
 
 export default connect(mapStateToProps, { getPosts })(Posts)

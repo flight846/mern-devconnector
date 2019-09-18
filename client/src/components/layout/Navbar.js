@@ -4,16 +4,13 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import PropTypes from 'prop-types';
 
-import { FaCode, FaSignOutAlt, FaUser, FaUserFriends } from 'react-icons/fa';
+import { FaCode, FaSignOutAlt, FaUser } from 'react-icons/fa';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const signInlinks = (
         <ul className="nav">
-            <li>
-                <NavLink to="/profiles">
-                    <FaUserFriends />{' '}Developers
-                </NavLink>
-            </li>
+            <li> <NavLink to="/profiles"> Developers </NavLink> </li>
+            <li> <NavLink to="/posts"> Posts </NavLink> </li>
             <li>
                 <NavLink to="/dashboard">
                     <FaUser /><span className='hide-sm'> Dashboard</span>
