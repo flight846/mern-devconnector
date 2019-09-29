@@ -10,7 +10,7 @@ const PostItem = ({ auth, post: { _id, text, name, avatar, user, likes, comments
     return (
         <div className="post bg-white p-1 my-1">
             <div>
-                <Link to="/profile">
+                <Link to={`/profile/${user}`}>
                     <img
                         className="round-img"
                         src={ avatar }
@@ -24,7 +24,7 @@ const PostItem = ({ auth, post: { _id, text, name, avatar, user, likes, comments
                     { text }
                 </p>
                 <p className="post-date">
-                    Posted on { <Moment format="yyyy/mm/dd">{ date }</Moment> }
+                    Posted on { <Moment format="YYYY/MM/DD">{ date }</Moment> }
                 </p>
                 <button type="button" className="btn btn-light" onClick={e => addLike(_id)}>
                     <FaThumbsUp />{' '}

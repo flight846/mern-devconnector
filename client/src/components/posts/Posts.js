@@ -5,6 +5,7 @@ import { getPosts } from '../../actions/postActions'
 import Spinner from '../layout/Spinner'
 import PostItem from './PostItem'
 import { FaUser } from 'react-icons/fa'
+import PostForm from './PostForm'
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
     useEffect(() => {
@@ -18,7 +19,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
                 Posts
             </h1>
             <p className="lead"><FaUser />{' '}Welcome to the community</p>
-            {/* PostForm */}
+            <PostForm />
             <div className="posts">
                 { posts && posts.map(post => (
                     <PostItem key={ post._id } post={ post }/>
