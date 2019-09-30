@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { FaThumbsUp, FaThumbsDown, FaTimes } from 'react-icons/fa'
 import { addLike, removeLike, deletePost } from '../../actions/postActions'
 
-const PostItem = ({ auth, post: { _id, text, name, avatar, user, likes, comments, date }, addLike, removeLike }) => {
+const PostItem = ({ auth, post: { _id, text, name, avatar, user, likes, comments, date }, addLike, removeLike, showActions }) => {
     return (
         <div className="post bg-white p-1 my-1">
             <div>
@@ -26,28 +26,36 @@ const PostItem = ({ auth, post: { _id, text, name, avatar, user, likes, comments
                 <p className="post-date">
                     Posted on { <Moment format="YYYY/MM/DD">{ date }</Moment> }
                 </p>
-                <button type="button" className="btn btn-light" onClick={e => addLike(_id)}>
-                    <FaThumbsUp />{' '}
-                    <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-                </button>
-                <button type="button" className="btn btn-light" onClick={e => removeLike(_id)}>
-                    <FaThumbsDown />{' '}
-                </button>
-                <Link to={`/post/${_id}`} className="btn btn-primary">
-                    Discussion{' '}{comments.length > 0 && <span className='comment-count'>{comments.length}</span> }
-                </Link>
-                {!auth.loading && user === auth.user._id && 
-                    <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={e => deletePost(_id)}
-                    >
-                        <FaTimes />
-                    </button>
-                }
+                { showActions && (
+                    <Fragment>
+                        <button type="button" className="btn btn-light" onClick={e => addLike(_id)}>
+                            <FaThumbsUp />{' '}
+                            <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+                        </button>
+                        <button type="button" className="btn btn-light" onClick={e => removeLike(_id)}>
+                            <FaThumbsDown />{' '}
+                        </button>
+                        <Link to={`/posts/${_id}`} className="btn btn-primary">
+                            Discussion{' '}{comments.length > 0 && <span className='comment-count'>{comments.length}</span>}
+                        </Link>
+                        {!auth.loading && user === auth.user._id &&
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={e => deletePost(_id)}
+                            >
+                                <FaTimes />
+                            </button>
+                        }
+                    </Fragment>
+                )}
             </div>
         </div>
     )
+}
+
+PostItem.defaultProps = {
+    showActions: true
 }
 
 PostItem.propTypes = {
