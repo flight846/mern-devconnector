@@ -29,3 +29,7 @@ export const POST_ERROR = 'POST_ERROR';
 
 // Likes types
 export const UPDATE_LIKES = 'UPDATE_LIKES';
+
+// Comment types
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
