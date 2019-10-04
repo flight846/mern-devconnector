@@ -544,8 +544,12 @@ button {
   width: 100px;
 }
 
-.comments:first-child { border: 0; }
-.comments .post { border: 0; margin-left: 70px; border-top: 1px solid #eee; }
+.comments .post { 
+  border: 0; 
+  margin-left: 70px; 
+  border-top: 1px solid #eee; 
+}
+.comments .post:first-child { border: 0; }
 
 .post .comment-count {
   background: var(--light-color);
