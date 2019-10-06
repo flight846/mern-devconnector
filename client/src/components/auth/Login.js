@@ -35,6 +35,7 @@ const Login = ({ setAlert, login, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Sign In</h1>
             <p className="lead"><FaUser /> Sign into Your Account</p>
+            <p>Email: fred@gmail.com<br/>Password: 123456</p>
             <form className="form" onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                     <input type="email" placeholder="Email Address" onChange={e => onChange(e)} name="email" value={email} />
